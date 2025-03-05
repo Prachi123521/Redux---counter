@@ -23,10 +23,12 @@ const todoSlice = createSlice({
               
               
         }, 
-        
-        updateTask: (state, action) => {
-            state.todos = state.todos.map(todo => todo.id === action.payload.id ? {...todo,  isCompleted: action.payload.isCompleted} : todo)
-        },
+
+       filterTodo:(state,action)=>{
+        state.filter=action.payload;
+          
+       },
+      
        
     
         deleteTodo:(state,action)=>{
@@ -40,32 +42,36 @@ const todoSlice = createSlice({
                     todo.text=action.payload.text
                 }
                 return todo;
-            })
+            });
         },
+
+        toggleComplete:(state,action)=>{
+            const {id} = action.payload;
+            const index = state. todos.findIndex((todo)=>todo.id === id);
+            state.todos[index].completed =!state.todos[index].completed;
+        },
+
 
     
         clearTodo:(state,action)=>{
             state.todos=[];
         },
 
-       setFilter:(state,action)=>{
-        state.filter = action.payload;
-       }
+    
         
     
 
 
-    
+     
 
         
         
 
-        },
+},
+});
         
-        
-    },
-);
+
 console.log("Actions" ,todoSlice.initialState);
 
-export const {addTodo,deleteTodo,editTodo,clearTodo,setFilter,updateTodo}=todoSlice.actions;
+export const {addTodo,deleteTodo,editTodo,clearTodo,setFilter,filterTodo,toggleComplete,setTodo}=todoSlice.actions;
 export default todoSlice.reducer;

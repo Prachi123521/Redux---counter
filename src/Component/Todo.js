@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addTodo,editTodo} from "../Redux/todoSlice";
+import { addTodo} from "../Redux/todoSlice";
 import{FaPlus} from 'react-icons/fa';
-import Tabs from "./Tabs";
 import Todolist from "./Todolist";
 
 
@@ -42,13 +41,7 @@ const Todo = () =>{
     }
   }
   
-
-const saveBtnHandler = ()=>{
-        dispatch(editTodo({id:editTodoObj.id,text:text}));
-        setText('');
-        setIsEdit(false);
-       }
-  
+ 
   
 
    
@@ -60,14 +53,14 @@ const saveBtnHandler = ()=>{
       <h2 className="text-center font-bold text-3xl mb-4">Todoapp with Redux</h2>
       <div className="flex">
       <input  className = "py-2 px-4 border rounded w-full "type ="text" value = {text} placeholder='Enter text' onChange={(e)=>setText(e.target.value)}/>
-      {isEdit ? <button onClick={()=>saveBtnHandler()}>Save</button> :
-       <button className='py-2 px-4 bg-blue-500 rounded' onClick={handleAddTodo}> <FaPlus/></button>}
+      
+       <button className='py-2 px-4 bg-blue-500 rounded' onClick={handleAddTodo}><FaPlus/></button>
         
        </div>
        </div>
 
         
-       <Tabs/>
+       
        <Todolist/>
        </div>
   )}

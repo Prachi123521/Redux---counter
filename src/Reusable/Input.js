@@ -1,13 +1,16 @@
 import React from 'react'
 
- function Input({type,placeholder,value,onChange}) {
+ function Input({type="text",placeholder,value,onChange,id,name,...props}) {
   return (
-    <div>
+    
       <input type = {type}
       placeholder={placeholder}
       value={value}
-      onChange={onChange}/>
-    </div>
+      onChange={onChange}
+      id={id}
+      name ={name}
+      {...props}/>
+    
   );
 }
 export default Input;
