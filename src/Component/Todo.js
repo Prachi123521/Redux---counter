@@ -15,9 +15,7 @@ const Todo = () =>{
     const todos = useSelector((state)=>state.todo.todos);
     const selectedTab= useSelector(state=>state.todo.filter);
     console.log("todos", todos,selectedTab);
-      const [isEdit,setIsEdit]=useState(false);
-      const [editTodoObj,seteditTodoObj]=useState({});
-  
+     
     
     const dispatch = useDispatch();
     console.log(todos);
@@ -42,8 +40,6 @@ const Todo = () =>{
   }
   
  
-  
-
    
   
   
@@ -53,7 +49,7 @@ const Todo = () =>{
       <h2 className="text-center font-bold text-3xl mb-4">Todoapp with Redux</h2>
       <div className="flex">
       <input  className = "py-2 px-4 border rounded w-full "type ="text" value = {text} placeholder='Enter text' onChange={(e)=>setText(e.target.value)}/>
-      
+       
        <button className='py-2 px-4 bg-blue-500 rounded' onClick={handleAddTodo}><FaPlus/></button>
         
        </div>

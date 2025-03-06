@@ -9,6 +9,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     todos:[],
     filter:"All",
+    searchTerm : ""
     
 }
 const todoSlice = createSlice({
@@ -49,12 +50,17 @@ const todoSlice = createSlice({
             const {id} = action.payload;
             const index = state. todos.findIndex((todo)=>todo.id === id);
             state.todos[index].completed =!state.todos[index].completed;
+            
         },
 
 
     
         clearTodo:(state,action)=>{
             state.todos=[];
+        },
+
+        searchTodo:(state,action)=>{
+            state.searchTerm = action.payload;
         },
 
     
@@ -73,5 +79,5 @@ const todoSlice = createSlice({
 
 console.log("Actions" ,todoSlice.initialState);
 
-export const {addTodo,deleteTodo,editTodo,clearTodo,setFilter,filterTodo,toggleComplete,setTodo}=todoSlice.actions;
+export const {addTodo,deleteTodo,editTodo,clearTodo,setFilter,filterTodo,toggleComplete,setTodo,searchTodo}=todoSlice.actions;
 export default todoSlice.reducer;
