@@ -1,8 +1,9 @@
-import { useState ,useMemo} from "react";
+import { useState} from "react";
 import React from 'react';
 import { useDispatch,useSelector } from "react-redux";
 import { deleteTodo,editTodo,clearTodo,filterTodo,toggleComplete} from "../Redux/todoSlice";
 import{FaPencilAlt,FaTrash} from 'react-icons/fa';
+import { useGetAllProductsQuery } from "../Redux/apiSlice";
 
 
 
@@ -10,8 +11,8 @@ import{FaPencilAlt,FaTrash} from 'react-icons/fa';
 
 const Todolist = () => {
     const [text,setText]=useState("");
-    const [editTodoObj,seteditTodoObj]=useState({});
-    const [isEdit,setIsEdit]=useState(false);
+    const [editId,setEditId]=useState(null);
+    const [editText,setEditText]=useState("");
     
     const todos = useSelector((state)=>state.todo.todos);
     const filter = useSelector((state)=>state.todo.filter);
@@ -50,18 +51,16 @@ const Todolist = () => {
        
       
       
-      const editHandler = (textobj) =>{
-        seteditTodoObj(textobj);
-        setText(textobj.value);
-        setIsEdit(true);
-      }
-    
-  
-      const saveBtnHandler = () =>{
-        dispatch(editTodo({id:editTodoObj.id,text:text}));
-        setText('');
-        setIsEdit(false);
-      }
+     const handleEditClick = (id,currentText)=>{
+       setEditId(id);
+       setEditText(currentText);
+     }
+
+     const handleSaveClick = (id)=>{
+      dispatch(editTodo({id,text:editText}));
+      setEditId(null);
+      setEditText("");
+     }
     
 
     
@@ -87,25 +86,23 @@ const Todolist = () => {
               {sortTodo.map((todo)=>(
               <li className="flex item-center justify-between bg-white p-3 mb-3">
                 <input type = "checkbox" onClick={()=>{handleToggleComplete(todo.id)}}/>
-                  <div className ={`${todo.completed ? "line-through text-green-400" : "text-orange-400"}`}>
-                <span>{todo.text}</span>
+                  <div className ={`${todo.completed ? "line-through text-green-400" : "" }`}>
+                {todo.text}
                  </div>
+                
                 <div className="flex">
                 <button  className =" bg-green-400 mr-2 p-2  rounded" onClick={()=>handleDeleteTodo(todo.id)}><FaTrash/></button>
-
-              
-              
-    
-
-                {isEdit ? (
+                {editId === todo.id ? (
                   <>
-                  <input type = "text" placeholder="Edittodo"/>
-                  <button onClick={()=>saveBtnHandler()}>Save</button>
-                  </>
-                ):(<button className = "bg-red-400 p-2 rounded" onClick ={()=>editHandler(todo)}><FaPencilAlt/></button>
-              )}
-            {/*<button className = "bg-red-400 p-2 rounded" onClick ={()=>editHandler(todo)}><FaPencilAlt/></button>*/}
+                  <input type = "text" value={editText} onChange={(e)=>setEditText(e.target.value)} />
+                  <button onClick={()=>handleSaveClick(todo.id)}>Save</button>
+                  </> ) : (
               
+                  
+                  <button className = "bg-red-400 p-2 rounded" onClick ={()=>handleEditClick(todo.id,todo.text)}><FaPencilAlt/></button>
+              
+                ) }
+               
               </div>
               </li>
     
@@ -114,7 +111,11 @@ const Todolist = () => {
             </div>
              )}
             
+            <div>
+              <div className="flex item-center gap-4">
 
+              </div>
+            </div>
 
 
            <div>
