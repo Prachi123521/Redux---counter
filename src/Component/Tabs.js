@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+{/*import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { setFilter } from '../Redux/todoSlice';
 
@@ -10,9 +10,11 @@ function Tabs() {
     <div>
         <ul>
             {tabs.map((tab)=>(
-         <li className = {selectedTab == tab ? `active` : ``}
+         <li className = {selectedTab == tab? `active` : ``}
          onClick={()=>dispatch(setFilter(tab))}>
             {tab}
+
+         
             
          </li>
             ))}
@@ -22,4 +24,4 @@ function Tabs() {
   )
 }
 
-export default Tabs;
+export default Tabs;*/}
